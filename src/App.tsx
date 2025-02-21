@@ -6,6 +6,7 @@ import { ZoomLink } from './components/ZoomLink';
 import { DayCard } from './components/DayCard';
 import { PassionProductFormula } from './components/PassionProductFormula';
 import { LoginScreen } from './components/LoginScreen';
+import { VIPBenefits } from './components/VIPBenefits';
 import { useTimeConversion } from './hooks/useTimeConversion';
 import { useProgress } from './hooks/useProgress';
 import { useCallStatus } from './hooks/useCallStatus';
@@ -13,7 +14,7 @@ import { useAuth } from './hooks/useAuth';
 import { challengeDays } from './data/challengeDays';
 
 function App() {
-  const { isAuthenticated } = useAuth();
+  const { isAuthenticated, isVIP } = useAuth();
   const userTime = useTimeConversion();
   const progress = useProgress();
   const callStatus = useCallStatus();
@@ -43,6 +44,7 @@ function App() {
         <div className="absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-black/50 to-transparent pointer-events-none" aria-hidden="true" />
         <ProgressBar {...progress} />
         <ZoomLink />
+        {isVIP && <VIPBenefits />}
         <PreChallengeSteps />
       </div>
       
@@ -66,6 +68,7 @@ function App() {
                 day={day}
                 timeInfo={userTime[index] || { time: '', day: '' }}
                 callToAction={callToAction}
+                isVIP={isVIP}
               />
             ))}
           </div>
@@ -77,4 +80,4 @@ function App() {
   );
 }
 
-export default App
+export default App;

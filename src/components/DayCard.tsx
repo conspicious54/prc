@@ -10,9 +10,10 @@ interface DayCardProps {
     day: string;
   };
   callToAction: CallToActionProps;
+  isVIP: boolean;
 }
 
-export function DayCard({ day, timeInfo, callToAction }: DayCardProps) {
+export function DayCard({ day, timeInfo, callToAction, isVIP }: DayCardProps) {
   const { isLive, countdown, onClick } = callToAction;
   const [isWorksheetModalOpen, setIsWorksheetModalOpen] = useState(false);
 
@@ -22,17 +23,14 @@ export function DayCard({ day, timeInfo, callToAction }: DayCardProps) {
     const currentDay = pacificNow.getDay();
     const pacificHour = pacificNow.getHours();
     
-    // Reset on Sunday
     if (currentDay === 0) {
       return { hasOccurred: false, isJoinable: false };
     }
 
-    // Check if the call has already occurred
     if (currentDay > day.number || (currentDay === day.number && pacificHour >= 10)) {
       return { hasOccurred: true, isJoinable: false };
     }
 
-    // Check if it's joinable (1 hour before the call)
     const isJoinable = currentDay === day.number && 
       ((pacificHour === 8 && pacificHour < 9) || (pacificHour === 9 && pacificHour < 10));
 
@@ -100,7 +98,7 @@ export function DayCard({ day, timeInfo, callToAction }: DayCardProps) {
               <button 
                 onClick={handleWatchRecording}
                 className={`flex items-center justify-center py-3 px-4 rounded-xl transition-all duration-300 group
-                  ${callStatus.hasOccurred 
+                  ${(callStatus.hasOccurred && (isVIP || new Date().getTime() - new Date(callStatus.hasOccurred).getTime() < 48 * 60 * 60 * 1000))
                     ? 'bg-blue-50 text-blue-700 hover:bg-blue-100 cursor-pointer'
                     : 'bg-gray-100 text-gray-400 cursor-not-allowed'}`}
               >

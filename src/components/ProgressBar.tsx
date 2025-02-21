@@ -1,8 +1,11 @@
 import React from 'react';
 import { ProgressBarProps } from '../types';
 import { Clock, Calendar, Trophy } from 'lucide-react';
+import { useAuth } from '../hooks/useAuth';
 
 export function ProgressBar({ percent, currentDay }: ProgressBarProps) {
+  const { isVIP } = useAuth();
+
   return (
     <div className="container mx-auto px-4 -mt-8">
       <div className="bg-white rounded-xl shadow-lg p-8 max-w-4xl mx-auto backdrop-blur-lg bg-white/90">
@@ -29,7 +32,6 @@ export function ProgressBar({ percent, currentDay }: ProgressBarProps) {
           
           <div className="absolute -top-1 left-0 right-0">
             {[1, 2, 3, 4].map((day) => {
-              // Calculate marker position based on equal spacing (0%, 33.33%, 66.66%, 100%)
               const markerPosition = ((day - 1) / 3) * 100;
               const isCompleted = currentDay >= day;
               const isCurrent = currentDay === day;
@@ -67,28 +69,30 @@ export function ProgressBar({ percent, currentDay }: ProgressBarProps) {
           </div>
         </div>
 
-        <div className="flex items-start gap-6 p-4 bg-amber-50 rounded-lg border border-amber-100">
-          <div className="flex-shrink-0 p-2 bg-amber-100 rounded-full">
-            <Clock className="w-5 h-5 text-amber-600" />
+        {!isVIP && (
+          <div className="flex items-start gap-6 p-4 bg-amber-50 rounded-lg border border-amber-100">
+            <div className="flex-shrink-0 p-2 bg-amber-100 rounded-full">
+              <Clock className="w-5 h-5 text-amber-600" />
+            </div>
+            <div>
+              <p className="text-amber-800 text-sm font-medium">
+                ⚠️ Important: Recordings available for 48 hours
+              </p>
+              <p className="text-amber-600 text-sm mt-1">
+                Non-VIP members can access recordings for 48 hours after each lesson.{' '}
+                <a 
+                  href="https://www.productresearchchallenge.com/upgrade-offer" 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  className="font-semibold text-blue-600 hover:text-blue-800 underline"
+                >
+                  Upgrade to VIP
+                </a>
+                {' '}for lifetime access.
+              </p>
+            </div>
           </div>
-          <div>
-            <p className="text-amber-800 text-sm font-medium">
-              ⚠️ Important: Recordings available for 48 hours
-            </p>
-            <p className="text-amber-600 text-sm mt-1">
-              Non-VIP members can access recordings for 48 hours after each lesson.{' '}
-              <a 
-                href="https://www.productresearchchallenge.com/upgrade-offer" 
-                target="_blank" 
-                rel="noopener noreferrer" 
-                className="font-semibold text-blue-600 hover:text-blue-800 underline"
-              >
-                Upgrade to VIP
-              </a>
-              {' '}for lifetime access.
-            </p>
-          </div>
-        </div>
+        )}
       </div>
     </div>
   );
