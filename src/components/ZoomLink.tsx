@@ -3,7 +3,7 @@ import { Link, Copy, CheckCheck, ExternalLink } from 'lucide-react';
 
 export function ZoomLink() {
   const [copied, setCopied] = useState(false);
-  const zoomLink = "https://zoom.us/j/123456789"; // Replace with actual Zoom link
+  const zoomLink = "https://us06web.zoom.us/s/86452377111";
 
   const copyToClipboard = async () => {
     try {
