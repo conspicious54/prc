@@ -22,26 +22,26 @@ export function useProgress() {
         return;
       }
       
-      // Reset progress before Monday 9 AM
+      // Reset progress before Monday 9 AM Pacific
       if (day === 1 && hour < 9) {
         setProgress({ percent: 0, currentDay: 0 });
         return;
       }
 
-      // Calculate current day (1-4)
+      // Calculate current day (1-4 for Monday-Thursday)
       let currentDay = day;
-      if (currentDay > 4) currentDay = 4;
+      if (currentDay > 4) currentDay = 4; // Cap at Thursday
       
       // Calculate progress percentage
       let progressPercent = 0;
       
-      if (hour >= 9) {
+      if (hour >= 9) { // After 9 AM Pacific
         // Base progress for completed days
         const completedDays = currentDay - 1;
-        const baseProgress = (completedDays / 3) * 100;
+        const baseProgress = (completedDays / 3) * 100; // 3 intervals between 4 days
         
-        // Progress within current day
-        const dayProgress = ((hour - 9) + (minute / 60)) / 24;
+        // Progress within current day (assuming each day contributes equally)
+        const dayProgress = ((hour - 9) + (minute / 60)) / 24; // Progress through the day
         const currentDayContribution = (dayProgress / 3) * 100;
         
         progressPercent = Math.min(100, baseProgress + currentDayContribution);
@@ -54,7 +54,7 @@ export function useProgress() {
     };
 
     updateProgress();
-    const interval = setInterval(updateProgress, 60000);
+    const interval = setInterval(updateProgress, 60000); // Update every minute
     return () => clearInterval(interval);
   }, []);
 

@@ -140,7 +140,7 @@ export function PassionProductFormula() {
 
                 <div className="mt-12 text-center">
                   <a
-                    href="https://www.thepassionproductformula.com/february"
+                    href="https://www.thepassionproductformula.com/"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="inline-flex items-center px-12 py-6 text-xl font-bold rounded-full bg-gradient-to-r from-amber-500 to-amber-600 text-white hover:from-amber-600 hover:to-amber-700 transition-all transform hover:scale-105 shadow-xl hover:shadow-2xl"

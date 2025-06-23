@@ -20,17 +20,20 @@ export function DayCard({ day, timeInfo, callToAction, isVIP }: DayCardProps) {
   const getCallStatus = () => {
     const now = new Date();
     const pacificNow = new Date(now.toLocaleString('en-US', { timeZone: 'America/Los_Angeles' }));
-    const currentDay = pacificNow.getDay();
+    const currentDay = pacificNow.getDay(); // 0 = Sunday, 1 = Monday, etc.
     const pacificHour = pacificNow.getHours();
     
+    // If it's Sunday, no calls have occurred yet
     if (currentDay === 0) {
       return { hasOccurred: false, isJoinable: false };
     }
 
+    // Check if this day's call has already occurred (past 9 AM Pacific on that day)
     if (currentDay > day.number || (currentDay === day.number && pacificHour >= 10)) {
       return { hasOccurred: true, isJoinable: false };
     }
 
+    // Check if this call is currently joinable (8-9 AM Pacific on the call day)
     const isJoinable = currentDay === day.number && 
       ((pacificHour === 8 && pacificHour < 9) || (pacificHour === 9 && pacificHour < 10));
 
@@ -41,6 +44,7 @@ export function DayCard({ day, timeInfo, callToAction, isVIP }: DayCardProps) {
 
   const handleWatchRecording = () => {
     if (callStatus.hasOccurred) {
+      // Open the recording link
       window.open('https://fast.wistia.com/embed/medias/o63wwt698d', '_blank');
     }
   };
