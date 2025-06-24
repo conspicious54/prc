@@ -42,10 +42,20 @@ export function DayCard({ day, timeInfo, callToAction, isVIP }: DayCardProps) {
 
   const callStatus = getCallStatus();
 
+  const getRecordingLink = () => {
+    const recordingLinks = {
+      1: 'https://fast.wistia.com/embed/medias/h8nvqi77vw',
+      2: 'https://fast.wistia.com/embed/medias/o63wwt698d',
+      3: 'https://fast.wistia.com/embed/medias/o63wwt698d',
+      4: 'https://fast.wistia.com/embed/medias/o63wwt698d'
+    };
+    return recordingLinks[day.number as keyof typeof recordingLinks] || recordingLinks[2];
+  };
+
   const handleWatchRecording = () => {
     if (callStatus.hasOccurred) {
-      // Open the recording link
-      window.open('https://fast.wistia.com/embed/medias/o63wwt698d', '_blank');
+      // Open the specific recording link for this day
+      window.open(getRecordingLink(), '_blank');
     }
   };
 
