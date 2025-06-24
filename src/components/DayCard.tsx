@@ -45,7 +45,7 @@ export function DayCard({ day, timeInfo, callToAction, isVIP }: DayCardProps) {
   const getRecordingLink = () => {
     const recordingLinks = {
       1: 'https://fast.wistia.com/embed/medias/h8nvqi77vw',
-      2: 'https://fast.wistia.com/embed/medias/o63wwt698d',
+      2: 'https://fast.wistia.com/embed/medias/8t0s2885x7',
       3: 'https://fast.wistia.com/embed/medias/o63wwt698d',
       4: 'https://fast.wistia.com/embed/medias/o63wwt698d'
     };
