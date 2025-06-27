@@ -47,7 +47,7 @@ export function DayCard({ day, timeInfo, callToAction, isVIP }: DayCardProps) {
       1: 'https://fast.wistia.com/embed/medias/h8nvqi77vw',
       2: 'https://fast.wistia.com/embed/medias/8t0s2885x7',
       3: 'https://fast.wistia.com/embed/medias/azunjnc1hc',
-      4: 'https://fast.wistia.com/embed/medias/azunjnc1hc'
+      4: 'https://fast.wistia.com/embed/medias/w7er50ixeo'
     };
     return recordingLinks[day.number as keyof typeof recordingLinks] || recordingLinks[2];
   };
